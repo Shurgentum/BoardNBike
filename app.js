@@ -8,6 +8,7 @@ const path = require("path")
 
 // Import middleware
 const { user_middleware } = require("./middleware/user")
+const { messages_middleware } = require("./middleware/messages")
 
 
 // Import routers
@@ -57,6 +58,7 @@ app.use(session({
 
 // Custom
 app.use(user_middleware)
+app.use(messages_middleware)
 
 
 // Routing

@@ -5,18 +5,17 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
+    "prestart": "sass public/styles/sass:public/styles/css --source-map --no-stop-on-error --no-error-css",
     "debug": "nodemon app.js",
-    "postinstall": "sass public/static/styles/sass:public/static/styles/css --source-map --no-stop-on-error --no-error-css",
-    "watch": "sass public/static/styles/sass:public/static/styles/css --watch --source-map"
+    "watch": "sass public/styles/sass:public/styles/css --watch --source-map"
   },
   "repository": {
     "type": "git",
-    "url": "github.com/Shurgentum/BoardNBike"
+    "url": "https://github.com/Shurgentum/BoardNBike"
   },
   "author": "Shurgentum",
   "license": "GPL-3.0",
   "dependencies": {
-    "bcrypt": "^5.0.0",
     "bcryptjs": "^2.4.3",
     "connect-mongodb-session": "^2.3.3",
     "express": "^4.17.1",

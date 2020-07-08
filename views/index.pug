@@ -1,4 +1,8 @@
 extends global/layout
 
+block head
+  link(rel="stylesheet", href="/styles/css/global.css")
+  link(rel="stylesheet", href="/styles/css/header.css")
+
 block body
-  p todo
+  include include/header
