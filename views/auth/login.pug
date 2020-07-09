@@ -1,0 +1,19 @@
+extends ../global/layout
+
+
+block head
+  link(rel="stylesheet", href="/styles/css/header.css")
+  link(rel="stylesheet", href="/styles/css/forms.css")
+
+block body
+  include ../include/header
+  .container
+    form(action="", method="POST")
+      .form-group
+        label(for="login") Login
+        input(type="text", name="login" placeholder="Login" autofocus=true)
+      .form-group
+        label(for="password") Password
+        input(type="password", name="password" placeholder="Password")
+      .form-group
+        button(type="submit") Войти

@@ -62,8 +62,8 @@ app.use(messages_middleware)
 
 
 // Routing
-app.use("", index)
-app.use("/auth", authRouter)
+app.use(index)
+app.use(authRouter)
 
 
 // Errors handling

@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const { User } = require("../models/user")
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcryptjs")
+const { Messages } = require("../util/messages")
 
 // Logout functionality
 router.get("/logout", (req, res, next) => {
@@ -13,7 +14,7 @@ router.get("/logout", (req, res, next) => {
 router.route("/login")
 
     .get((req, res, next) => {
-        res.render("login", {
+        res.render("auth/login", {
             title: "Авторизация",
             highlighted: "login"
         });
@@ -25,10 +26,13 @@ router.route("/login")
         if (user) {
             await bcrypt.compare(req.body.password, user.password)
             req.session.user = user.id
-            res.messages.send(req, "success", "Вход", "Вход успешен!")
-            res.redirect("/login")
+            Messages.send(req, "success", "Вход", "Вход успешен!")
+            req.session.user = user.id
+            req.session.is_authenticated = true
+            res.redirect("/")
         }
-        res.render("login", {
+        req.session.destroy()
+        res.render("auth/login", {
             title: "Авторизация",
             highlighted: "login"
         })
@@ -38,7 +42,7 @@ router.route("/login")
 router.route("/register")
 
     .get((req, res, next) => {
-        res.render("register", {
+        res.render("auth/register", {
             title: "Регистрация",
             highlighted: "register"
         })
@@ -49,11 +53,7 @@ router.route("/register")
         const first_name = req.body.first_name
         const last_name = req.body.last_name
 
-        const user = await User.findOne({ email: req.body.email })
-        if (user) {
-            res.messages.send(req, "warning", "testheader", "testtext")
-            res.redirect("/register")
-        } else {
+        try {
             const hashedpassword = await bcrypt.hash(req.body.password, 12)
             const user = await User.create({
                 email: email,
@@ -61,12 +61,15 @@ router.route("/register")
                 last_name: last_name,
                 password: hashedpassword
             })
-            req.messages.send(req, "success", "Registered", `${first_name} ${last_name}, вы были успешно зарегистрированы!`)
+        } catch (err) {
+            Messages.send(req, "warning", "Error", "User with this email is already registered!")
+            req.session.destroy()
+            res.redirect("/register")
         }
-        res.render("register", {
-            title: "Регистрация",
-            highlighted: "register"
-        })
+        Messages.send((req, "success", "Registered", `${first_name} ${last_name}, вы были успешно зарегистрированы!`))
+        req.session.user = user.id
+        req.session.is_authenticated = true
+        res.redirect("/")
     })
 
 

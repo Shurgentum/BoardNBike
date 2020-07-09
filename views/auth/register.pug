@@ -1,0 +1,29 @@
+extends ../global/layout
+
+
+block head
+  link(rel="stylesheet", href="/styles/css/header.css")
+  link(rel="stylesheet", href="/styles/css/forms.css")
+
+block body
+  include ../include/header
+  .container
+    form(action='' method='POST')
+      .form-group
+        label(for='email') Email
+        input.form-control(type='email' name='email' placeholder='Email' autofocus=true)
+      .form-group
+        label(for='first_name') First name
+        input.form-control(type='text' name='first_name' placeholder='First name')
+      .form-group
+        label(for='last_name') Last name
+        input.form-control(type='text' name='last_name' placeholder='Last name')
+      .form-group
+        label(for='password') Password
+        input.form-control(type='password' name='password' placeholder='Password')
+      .form-group
+        label(for='password-confirm') Confirm password
+        input.form-control(type='password' name='password-confirm' placeholder='Confirm password')
+      button(type='submit') Register
+    
+    script(src="/js/match.js")

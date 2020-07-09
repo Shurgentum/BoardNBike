@@ -1,3 +1,10 @@
 header
   .infopanel
-    .container test
+    .container
+        a.element(href="/login" class=highlighted=="login" ? "active" : "") Login
+        a.element(href="/register" class=highlighted=="register" ? "active" : "") Register
+if messages
+    each message in messages
+      p= message.type
+      p= message.headline
+      p= message.text
