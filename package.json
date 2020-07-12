@@ -5,9 +5,12 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "prestart": "sass public/styles/sass:public/styles/css --source-map --no-stop-on-error --no-error-css",
-    "debug": "nodemon app.js",
-    "watch": "sass public/styles/sass:public/styles/css --watch --source-map"
+    "prestart": "npm run compile-styles && npm run compile-scripts",
+    "compile-styles": "sass public/styles/sass:public/styles/css --source-map --no-stop-on-error --no-error-css",
+    "compile-scripts": "tsc ./public/scripts/ts/*.ts --outDir ./public/scripts/js --sourceMap",
+    "watch-sass": "sass public/styles/sass:public/styles/css --watch --source-map",
+    "watch-tsc": "tsc ./public/scripts/ts/*.ts --outDir ./public/scripts/js --watch --sourceMap",
+    "debug": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -20,13 +23,14 @@
     "connect-mongodb-session": "^2.3.3",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
-    "mongoose": "^5.9.21",
+    "mongoose": "^5.9.23",
     "morgan": "^1.10.0",
-    "pg": "^8.2.2",
+    "pg": "^8.3.0",
     "pg-hstore": "^2.3.3",
     "pug": "^3.0.0",
-    "sass": "^1.26.9",
-    "sequelize": "^6.3.0"
+    "sass": "^1.26.10",
+    "sequelize": "^6.3.3",
+    "typescript": "^3.9.6"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"

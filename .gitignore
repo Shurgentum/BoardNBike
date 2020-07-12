@@ -10,9 +10,11 @@ db
 # Editor
 .vscode
 
-# Rendered styles
-*.css
-*.css.map
+# Compiled styles, scripts and maps
+public/**/*.css
+public/**/*.css.map
+public/**/*.js
+public/**/*.js.map
 
 # System
 .DS_Store
