@@ -3,6 +3,8 @@ header
     .container
         a.element(href="/login" class=highlighted=="login" ? "active" : "") Login
         a.element(href="/register" class=highlighted=="register" ? "active" : "") Register
+        a.element(href="/logout") Logout
+
 if messages
     each message in messages
       p.message(class=message.type) #{message.headline} #{message.text}
