@@ -1,18 +1,17 @@
 class Message {
-    constructor(type, headline, text) {
+    constructor(type, text) {
         this.type = type
-        this.headline = headline
         this.text = text
     }
 }
 
 class Messages {
-    static send(request, type, headline, text) {
+    static send(request, type, text) {
         if (request.session) {
             if (request.session.messages) {
-                request.session.messages.push(new Message(type, headline, text))
+                request.session.messages.push(new Message(type, text))
             } else {
-                request.session.messages = [new Message(type, headline, text)]
+                request.session.messages = [new Message(type, text)]
             }
         }
     }

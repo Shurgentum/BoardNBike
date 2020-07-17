@@ -10,7 +10,7 @@ const { UniqueConstraintError } = require("sequelize")
 router.get("/logout", (req, res, next) => {
     req.session.user = 0
     req.session.is_authenticated = false
-    Messages.send(req, "success", "Выход", "Выход осуществлён!")
+    Messages.send(req, "success", "Выход осуществлён!")
     res.redirect("/")
 })
 
@@ -36,13 +36,13 @@ router.route("/login")
         if (user) {
             // Check for match between user input string and hash in database
             if (await bcryptjs.compare(req.body.password, user.password)) {
-                Messages.send(req, "success", "Вход", "Вход успешен!")
+                Messages.send(req, "success", "Вход успешен!")
                 req.session.user = user.id
                 req.session.is_authenticated = true
                 return res.redirect("/")
             }
         }
-        Messages.send(req, "error", "Ошибка", "Логин или пароль не верны!")
+        Messages.send(req, "error", "Логин или пароль не верны!")
         return res.render("auth/login", {
             title: "Авторизация",
             highlighted: "login"
@@ -74,15 +74,15 @@ router.route("/register")
                 last_name: last_name,
                 password: hashedpassword
             })
-            Messages.send(req, "success", "Registered", `${first_name} ${last_name}, вы были успешно зарегистрированы!`)
+            Messages.send(req, "success", `${first_name} ${last_name}, вы были успешно зарегистрированы!`)
             req.session.user = user.id
             req.session.is_authenticated = true
             return res.redirect("/")
         } catch (err) {
             // Handling custom validation errors
-            if (err instanceof validation.ValidationError) Messages.send(req, "warning", "Error", "Validation error!")
+            if (err instanceof validation.ValidationError) Messages.send(req, "warning", "Validation error!")
             // Handling unique constraint error for logins
-            else if (err instanceof UniqueConstraintError) Messages.send(req, "warning", "Error", "User with this email is already registered!")
+            else if (err instanceof UniqueConstraintError) Messages.send(req, "warning", "User with this email is already registered!")
             else Messages.send(req, "warning", "Error", "Registration error!")
             return res.redirect("/register")
         }
