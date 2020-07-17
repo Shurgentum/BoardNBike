@@ -5,6 +5,8 @@ const createError = require("http-errors")
 const logger = require('morgan')
 const mongoose = require("mongoose")
 const path = require("path")
+const { ConnectionRefusedError } = require("sequelize")
+
 
 // Import middleware
 const { user_middleware } = require("./middleware/user")
@@ -96,8 +98,15 @@ const auth_launch = async () => {
             { useNewUrlParser: true, useUnifiedTopology: true }
         )
         app.listen(8000)
-    } catch {
-        console.error("Database authentication failed!")
+
+    } catch (err) {
+        if (err instanceof ConnectionRefusedError) {
+            console.error("Postgres database error!")
+            console.error(err.original)
+        } else {
+            // TODO: Mongo database authentication
+            console.error("Mongo database error!")
+        }
         process.exit(1)
     }
 }

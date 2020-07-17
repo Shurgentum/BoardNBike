@@ -5,6 +5,4 @@ header
         a.element(href="/register" class=highlighted=="register" ? "active" : "") Register
 if messages
     each message in messages
-      p= message.type
-      p= message.headline
-      p= message.text
+      p.message(class=message.type) #{message.headline} #{message.text}

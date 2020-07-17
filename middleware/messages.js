@@ -7,8 +7,8 @@ router.use((req, res, next) => {
     res.render = function (view, options, callback) {
         if (req.session.messages) {
             res.locals.messages = [...req.session.messages]
+            req.session.messages = []
         }
-        req.session.messages = []
         _render.call(this, view, options, callback)
     }
     next()

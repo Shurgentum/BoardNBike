@@ -8,10 +8,12 @@ class Message {
 
 class Messages {
     static send(request, type, headline, text) {
-        if (request.session.messages) {
-            request.session.messages.push(new Message(type, headline, text))
-        } else {
-            request.session.messages = [new Message(type, headline, text)]
+        if (request.session) {
+            if (request.session.messages) {
+                request.session.messages.push(new Message(type, headline, text))
+            } else {
+                request.session.messages = [new Message(type, headline, text)]
+            }
         }
     }
 }
